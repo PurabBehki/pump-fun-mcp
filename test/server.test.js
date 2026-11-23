@@ -17,6 +17,8 @@ test("tools/list returns six tools with object schemas", async () => {
   const r = await handle({ jsonrpc: "2.0", id: 3, method: "tools/list" });
   assert.equal(r.result.tools.length, 6);
   for (const t of r.result.tools) {
+    assert.ok(typeof t.title=== "string"&& t.title.length>0);
+    assert.strictEqual(t.annotations?.readOnlyHint,true);
     assert.equal(t.inputSchema.type, "object");
     assert.ok(t.description.length > 20);
   }
